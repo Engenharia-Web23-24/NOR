@@ -1,0 +1,19 @@
+﻿@model IEnumerable<NOR.Models.RegistoUtilizador>
+
+@{
+    ViewData["Title"] = "Lista";
+}
+
+<h1>Utilizadores</h1>
+@if (TempData["msgOK"] != null)
+{
+    <p style="font-weight: bold; color: green">@TempData["msgOK"]</p>
+}
+@if (Context.Session.Keys.Contains("estado") && Context.Session.GetString("estado") == "editar")
+{
+    <p>
+        <a asp-action="Adiciona" class="btn btn-outline-primary">+</a>
+    </p>
+}
+
+<partial name="ListaParcial" />

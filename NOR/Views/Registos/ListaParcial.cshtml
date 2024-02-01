@@ -1,0 +1,48 @@
+﻿@model IEnumerable<NOR.Models.RegistoUtilizador>
+<table class="table" id="LocalResultado">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Regime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Valido)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+            <tr>
+                <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Regime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Valido)
+            </td>
+            <td>
+                @if (Context.Session.Keys.Contains("estado") && Context.Session.GetString("estado") == "editar")
+                {
+                    @if (item.Valido)
+                    {
+                        <a asp-action="Invalida" asp-route-id="@item.RegistoId" class="btn btn-outline-danger"
+                        data-ajax="true" data-ajax-method="get" data-ajax-mode="replace" data-ajax-update="#LocalResultado">Invalida</a>
+                    }
+
+                    else
+                    {
+                        <a asp-action="Valida" asp-route-id="@item.RegistoId" class="btn btn-outline-primary"
+                        data-ajax="true" data-ajax-method="get" data-ajax-mode="replace" data-ajax-update="#LocalResultado">Valida</a>
+                    }
+                }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
